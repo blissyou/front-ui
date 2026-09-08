@@ -1,0 +1,18 @@
+.member-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.text-button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0;
+}
+
+.text-button:hover {
+    color: var(--navy);
+}

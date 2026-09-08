@@ -1,0 +1,703 @@
+/* The account screen is an animated event poster paired with an entry ticket. */
+.public-shell:has(.auth-stage) {
+  min-height: 100dvh;
+  background: #e9e8e0;
+}
+.public-shell:has(.auth-stage) > .public-nav {
+  flex-shrink: 0;
+  background: #e9e8e0;
+}
+.public-shell:has(.auth-stage) > footer {
+  display: none;
+}
+.public-shell .auth-stage {
+  --gate: #ff693b;
+  --gate-ink: #24231f;
+  max-width: 1440px;
+  width: 100%;
+  min-height: calc(100dvh - 76px);
+  padding: 22px 5vw;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+  align-content: center;
+  gap: 0;
+  overflow: visible;
+}
+.public-shell .auth-stage.auth-signup {
+  --gate: #c7e77b;
+  --gate-ink: #26321d;
+}
+.auth-stage .member-welcome {
+  position: relative;
+  min-height: 0;
+  height: 560px;
+  background: var(--gate);
+  color: var(--gate-ink);
+  padding: 26px 32px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background 0.65s;
+}
+.auth-stage .member-welcome:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.15;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' opacity='.4' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.auth-stage .member-welcome > .public-back {
+  color: var(--gate-ink);
+  font-size: 10px;
+  position: relative;
+  z-index: 4;
+  margin: 0 0 18px;
+}
+.gate-edition {
+  display: flex;
+  justify-content: space-between;
+  font:
+    9px "DM Mono",
+    monospace;
+  letter-spacing: 1px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #24231f44;
+}
+.auth-stage .auth-poster-copy {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+.public-shell .auth-stage .auth-poster-copy > .eyebrow {
+  font:
+    8px "DM Mono",
+    monospace;
+  color: var(--gate-ink);
+  margin: 17px 0 12px;
+  letter-spacing: 1px;
+}
+.auth-stage .auth-poster-copy h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.gate-headline {
+  font-size: clamp(60px, 7.4vw, 105px);
+  line-height: 0.84;
+  font-weight: 800;
+  letter-spacing: -0.075em;
+  animation: gate-type 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  position: relative;
+}
+.gate-headline > span {
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--gate-ink);
+}
+.auth-stage .auth-poster-copy > p:last-child {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--gate-ink);
+  margin: 21px 0 0;
+  max-width: 270px;
+}
+.auth-stage .auth-visual {
+  position: absolute;
+  right: -63px;
+  top: 165px;
+  width: 330px;
+  height: 330px;
+  z-index: 1;
+  pointer-events: none;
+}
+.gate-perspective {
+  width: 100%;
+  height: 100%;
+  perspective: 800px;
+  transform: rotateX(var(--pointer-y, 0deg)) rotateY(var(--pointer-x, 0deg));
+  transition: transform 0.4s ease-out;
+}
+.gate-tunnel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotate(-24deg);
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.gate-tunnel > i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid var(--gate-ink);
+  border-radius: 48%;
+  transform: translate(-50%, -50%) rotateX(42deg);
+  box-shadow:
+    5px 7px 0 #24231f22,
+    inset 2px 2px 0 #ffffff22;
+  animation: gate-breathe 6s ease-in-out infinite;
+  transition:
+    border-radius 1s,
+    border-color 0.6s;
+}
+.auth-signup .gate-tunnel {
+  transform: rotate(34deg);
+}
+.auth-signup .gate-tunnel > i {
+  border-radius: 10%;
+}
+.gate-core {
+  position: absolute;
+  inset: 36%;
+  display: grid;
+  place-items: center;
+  color: var(--gate-ink);
+  transform: rotate(24deg);
+  transition: transform 1s;
+}
+.gate-core svg {
+  width: 70px;
+  height: 70px;
+}
+.auth-signup .gate-core {
+  transform: rotate(-34deg);
+}
+.gate-coordinate {
+  position: absolute;
+  right: 73px;
+  bottom: 15px;
+  font:
+    8px "DM Mono",
+    monospace;
+  letter-spacing: 1px;
+  transform: rotate(-90deg);
+  transform-origin: right center;
+}
+.auth-poster-bottom {
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #24231f44;
+  padding-top: 13px;
+  z-index: 3;
+}
+.auth-poster-bottom small {
+  font:
+    8px "DM Mono",
+    monospace;
+  letter-spacing: 1px;
+}
+.auth-poster-bottom button {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  background: transparent;
+  border: 1px solid #24231f66;
+  color: var(--gate-ink);
+  cursor: pointer;
+}
+.public-shell .auth-stage .member-auth-content {
+  height: 560px;
+  min-width: 0;
+  padding: 26px 36px 20px;
+  background: #faf9f3;
+  border: 0;
+  border-left: 1px dashed #b8b9ab;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.member-auth-content:has(.gate-ticket-meta):before,
+.member-auth-content:has(.gate-ticket-meta):after {
+  content: "";
+  width: 22px;
+  height: 22px;
+  background: #e9e8e0;
+  position: absolute;
+  left: -11px;
+  border-radius: 50%;
+  z-index: 3;
+}
+.member-auth-content:has(.gate-ticket-meta):before {
+  top: -11px;
+}
+.member-auth-content:has(.gate-ticket-meta):after {
+  bottom: -11px;
+}
+.gate-ticket-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font:
+    8px "DM Mono",
+    monospace;
+  color: #74756a;
+  letter-spacing: 1.4px;
+  margin-bottom: 20px;
+}
+.gate-ticket-number {
+  color: #252820;
+  font-size: 13px;
+}
+.auth-mode-switch {
+  display: flex;
+  background: #ebece2;
+  position: relative;
+  isolation: isolate;
+  margin-bottom: 22px;
+  padding: 4px;
+}
+.auth-mode-switch:before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: calc(50% - 4px);
+  background: #252820;
+  z-index: -1;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.auth-signup .auth-mode-switch:before {
+  transform: translateX(100%);
+}
+.auth-mode-switch button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex: 1;
+  border: 0;
+  background: none;
+  color: #6d7263;
+  padding: 10px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 0.3s;
+}
+.auth-mode-switch button.active {
+  color: var(--gate);
+}
+.public-shell .auth-stage .auth-form-heading > .eyebrow {
+  font:
+    8px "DM Mono",
+    monospace;
+  letter-spacing: 1px;
+  color: #797e6d;
+  margin: 0 0 10px;
+}
+.public-shell .auth-stage .auth-form-heading h1 {
+  font-size: 38px;
+  letter-spacing: -1.8px;
+  line-height: 1.15;
+  margin: 0;
+}
+.public-shell .auth-stage .auth-form-heading > p:last-child {
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 12px 0 23px;
+  color: #717667;
+  word-break: keep-all;
+}
+.auth-form-heading {
+  animation: gate-form-in 0.4s both;
+}
+.public-shell .auth-stage .admin-form {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  margin: 0;
+}
+.public-shell .auth-stage .admin-form form {
+  padding: 0;
+  gap: 15px;
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+.public-shell .auth-stage .admin-form label {
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  gap: 7px;
+}
+.public-shell .auth-stage .admin-form input {
+  background: #f3f3ea;
+  border: 1px solid #d4d7c7;
+  padding: 12px 14px;
+  min-height: 44px;
+  height: 44px;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  outline-offset: 2px;
+  font-size: 13px;
+  width: 100%;
+}
+.public-shell .auth-stage .admin-form input:focus {
+  background: #fff;
+  border-color: #56614a;
+}
+.gate-password {
+  display: block;
+  position: relative;
+}
+.public-shell .auth-stage .gate-password input {
+  padding-right: 48px;
+}
+.gate-password button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #68725e;
+  cursor: pointer;
+}
+.public-shell .auth-stage .admin-form .primary {
+  background: #252820;
+  color: #faf9f3;
+  border: 1px solid #252820;
+  justify-content: space-between;
+  width: 100%;
+  margin: 4px 0 0;
+  height: 46px;
+  min-height: 46px;
+  padding: 12px 16px;
+  font-size: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.public-shell .auth-stage .admin-form .primary:hover {
+  background: #39432e;
+  color: var(--gate);
+  transform: none;
+}
+.auth-entry-form label {
+  animation: gate-form-in 0.45s both;
+}
+.auth-entry-form label:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.auth-switch-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #737a68;
+  padding: 9px 0 0;
+}
+.auth-switch-hint button {
+  padding: 5px 0;
+  border: 0;
+  background: none;
+  color: #303b26;
+  font-size: 11px;
+  font-weight: 800;
+}
+.public-shell .auth-stage .auth-feedback:empty {
+  min-height: 0;
+  margin: 3px 0;
+}
+.public-shell .auth-stage .auth-feedback:not(:empty) {
+  font-size: 11px;
+  margin: 7px 0;
+  line-height: 1.4;
+}
+.gate-ticket-footer {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #d8dbce;
+  padding-top: 13px;
+  margin-top: 16px;
+  color: #707766;
+}
+.gate-ticket-footer > span {
+  font:
+    7px "DM Mono",
+    monospace;
+  letter-spacing: 1px;
+}
+.gate-barcode {
+  width: 86px;
+  height: 20px;
+  background: repeating-linear-gradient(
+    90deg,
+    #343b2c 0 2px,
+    transparent 2px 4px,
+    #343b2c 4px 5px,
+    transparent 5px 8px,
+    #343b2c 8px 11px,
+    transparent 11px 13px
+  );
+}
+.auth-motion-paused * {
+  animation-play-state: paused !important;
+}
+.auth-motion-paused .auth-poster-copy,
+.auth-motion-paused .gate-headline,
+.auth-motion-paused .auth-form-heading,
+.auth-motion-paused .auth-entry-form label {
+  animation: none !important;
+}
+@keyframes gate-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotateX(42deg) rotateY(-10deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotateX(18deg) rotateY(16deg);
+  }
+}
+@keyframes gate-type {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0);
+  }
+}
+@keyframes gate-form-in {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (min-width: 1500px) and (min-height: 850px) {
+  .auth-stage .member-welcome,
+  .public-shell .auth-stage .member-auth-content {
+    height: 650px;
+  }
+  .gate-headline {
+    font-size: 120px;
+  }
+  .auth-stage .auth-visual {
+    width: 390px;
+    height: 390px;
+    top: 210px;
+    right: -60px;
+  }
+  .public-shell .auth-stage .member-auth-content {
+    padding-left: 55px;
+    padding-right: 55px;
+  }
+  .gate-ticket-meta {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 1000px) {
+  .public-shell .auth-stage {
+    padding: 18px 4vw;
+    grid-template-columns: 1fr 1fr;
+  }
+  .auth-stage .member-welcome {
+    padding: 24px;
+  }
+  .gate-headline {
+    font-size: 75px;
+  }
+  .auth-stage .auth-visual {
+    width: 270px;
+    height: 270px;
+    right: -70px;
+    top: 205px;
+  }
+  .public-shell .auth-stage .member-auth-content {
+    padding: 22px 25px;
+  }
+  .auth-poster-bottom {
+    left: 24px;
+    right: 24px;
+  }
+  .gate-edition {
+    font-size: 8px;
+  }
+  .gate-ticket-footer > span {
+    font-size: 6px;
+  }
+}
+@media (min-width: 641px) and (max-height: 700px) {
+  .public-shell .auth-stage {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .auth-stage .member-welcome,
+  .public-shell .auth-stage .member-auth-content {
+    height: 500px;
+  }
+  .gate-headline {
+    font-size: 78px;
+  }
+  .auth-stage .auth-visual {
+    width: 280px;
+    height: 280px;
+    top: 165px;
+  }
+  .auth-stage .auth-poster-copy > p:last-child {
+    margin-top: 15px;
+    font-size: 11px;
+  }
+  .gate-ticket-meta {
+    margin-bottom: 13px;
+  }
+  .auth-mode-switch {
+    margin-bottom: 16px;
+  }
+  .gate-ticket-footer {
+    margin-top: 9px;
+    padding-top: 9px;
+  }
+  .public-shell .auth-stage .auth-form-heading > p:last-child {
+    margin-bottom: 17px;
+  }
+  .public-shell .auth-stage .admin-form form {
+    gap: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .public-shell .auth-stage {
+    padding: 12px 5vw;
+    min-height: calc(100dvh - 68px);
+    grid-template-columns: 1fr;
+  }
+  .auth-stage .member-welcome {
+    height: 116px;
+    padding: 16px 22px;
+  }
+  .auth-stage .member-welcome > .public-back,
+  .gate-edition,
+  .public-shell .auth-stage .auth-poster-copy > .eyebrow,
+  .auth-stage .auth-poster-copy > p:last-child,
+  .gate-coordinate,
+  .auth-poster-bottom small {
+    display: none;
+  }
+  .gate-headline {
+    font-size: 40px;
+    line-height: 0.84;
+    letter-spacing: -2px;
+  }
+  .gate-headline br {
+    display: none;
+  }
+  .gate-headline span {
+    display: block;
+  }
+  .auth-stage .auth-visual {
+    height: 150px;
+    width: 150px;
+    right: 33px;
+    top: -17px;
+  }
+  .gate-core svg {
+    width: 35px;
+    height: 35px;
+  }
+  .gate-tunnel > i {
+    border-width: 1px;
+  }
+  .auth-poster-bottom {
+    border: 0;
+    left: auto;
+    right: 12px;
+    bottom: 12px;
+    padding: 0;
+  }
+  .auth-poster-bottom button {
+    width: 25px;
+    height: 25px;
+  }
+  .public-shell .auth-stage .member-auth-content {
+    height: auto;
+    min-height: 430px;
+    padding: 20px 24px;
+    border-left: 0;
+    border-top: 1px dashed #b8b9ab;
+  }
+  .member-auth-content:has(.gate-ticket-meta):before {
+    top: -11px;
+    left: -11px;
+  }
+  .member-auth-content:has(.gate-ticket-meta):after {
+    top: -11px;
+    bottom: auto;
+    right: -11px;
+    left: auto;
+  }
+  .gate-ticket-meta {
+    margin-bottom: 12px;
+  }
+  .auth-mode-switch {
+    margin-bottom: 17px;
+  }
+  .public-shell .auth-stage .auth-form-heading h1 {
+    font-size: 30px;
+  }
+  .public-shell .auth-stage .auth-form-heading > p:last-child {
+    margin: 9px 0 18px;
+    font-size: 11px;
+  }
+  .gate-ticket-footer {
+    margin-top: 12px;
+  }
+  .gate-ticket-footer > span {
+    font-size: 7px;
+  }
+}
+@media (max-width: 640px) and (max-height: 730px) {
+  .auth-stage .member-welcome {
+    height: 90px;
+  }
+  .gate-headline {
+    font-size: 31px;
+  }
+  .public-shell .auth-stage .member-auth-content {
+    min-height: 0;
+    padding: 16px 22px;
+  }
+  .gate-ticket-footer {
+    display: none;
+  }
+  .gate-ticket-meta {
+    margin-bottom: 9px;
+  }
+  .auth-mode-switch {
+    margin-bottom: 12px;
+  }
+  .public-shell .auth-stage .auth-form-heading > .eyebrow {
+    display: none;
+  }
+  .public-shell .auth-stage .auth-form-heading > p:last-child {
+    margin-bottom: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-stage * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .gate-perspective {
+    transform: none !important;
+  }
+}

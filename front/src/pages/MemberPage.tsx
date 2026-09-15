@@ -19,6 +19,7 @@ const applicationStatus: Record<string, string> = {
   APPROVED: "참가 승인",
   REJECTED: "반려",
 };
+const mockMode = import.meta.env.VITE_MOCK_MODE === "true";
 
 export function MemberPage() {
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -428,6 +429,13 @@ export function MemberPage() {
               : "이메일과 비밀번호만으로 계정을 만들 수 있습니다."}
           </p>
         </div>
+        {mockMode && mode === "login" && (
+          <aside className="demo-account" aria-label="UI 데모 로그인 정보">
+            <b>UI DEMO ACCOUNT</b>
+            <span>demo@contest.dev</span>
+            <span>demo1234</span>
+          </aside>
+        )}
         <section className="admin-form">
           <form onSubmit={submit} key={mode} className="auth-entry-form">
             <label className="full">

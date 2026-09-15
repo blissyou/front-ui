@@ -310,6 +310,24 @@
 .auth-form-heading {
   animation: gate-form-in 0.4s both;
 }
+.demo-account {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 15px;
+  padding: 10px 12px;
+  border: 1px solid #252820;
+  background: #d2e788;
+  color: #252820;
+  font: 10px "DM Mono", monospace;
+}
+.demo-account b { font-size: 8px; letter-spacing: 0.8px; }
+.demo-account span { padding-left: 10px; border-left: 1px solid #25282055; }
+@media (max-width: 640px) {
+  .demo-account { grid-template-columns: 1fr; gap: 5px; }
+  .demo-account span { padding-left: 0; border-left: 0; }
+}
 .public-shell .auth-stage .admin-form {
   border: 0;
   padding: 0;

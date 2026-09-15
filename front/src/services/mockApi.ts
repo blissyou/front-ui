@@ -66,12 +66,39 @@ const formFields = [
   { id: 4, label: "기획서", fieldType: "FILE", required: true, options: [], sortOrder: 4 },
 ];
 
+const demoMember = { id: 101, email: "demo@contest.dev", role: "USER" };
+const sessionKey = "contest-ui-demo-member";
+const dashboard = {
+  applications: [{ id: 501, contestId: 1, contestTitle: contest.title, contestStatus: "OPEN", applicationStatus: "SUBMITTED", submittedAt: "2026-09-08T17:20:00" }],
+  questions: [{ id: 701, contestId: 1, contestTitle: contest.title, title: "발표 자료 형식에 제한이 있나요?", secret: false, answered: true, answer: "PDF 형식으로 제출해 주세요.", createdAt: "2026-09-09T10:30:00" }],
+  notices: notices.map((notice) => ({ id: notice.id, contestId: 1, contestTitle: contest.title, title: notice.title, pinned: notice.pinned, createdAt: notice.createdAt })),
+};
+
 const clone = <T>(value: T): T => structuredClone(value);
 
 export async function mockRequest<T>(path: string, options: RequestInit = {}) {
   await new Promise((resolve) => window.setTimeout(resolve, 120));
   const method = options.method ?? "GET";
-  if (path === "/auth/me") throw new Error("UI 데모는 로그인하지 않은 상태입니다.");
+  if (path === "/auth/me" && method === "GET") {
+    const member = sessionStorage.getItem(sessionKey);
+    if (!member) throw new Error("로그인하지 않았습니다.");
+    return JSON.parse(member) as T;
+  }
+  if (path === "/auth/login" && method === "POST") {
+    const body = JSON.parse(String(options.body ?? "{}")) as { email?: string; password?: string };
+    if (body.email !== demoMember.email || body.password !== "demo1234") throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
+    sessionStorage.setItem(sessionKey, JSON.stringify(demoMember));
+    return clone(demoMember) as T;
+  }
+  if (path === "/auth/logout" && method === "POST") {
+    sessionStorage.removeItem(sessionKey);
+    return { success: true } as T;
+  }
+  if (path === "/auth/me" && method === "PATCH") return clone(demoMember) as T;
+  if (path === "/member/dashboard") {
+    if (!sessionStorage.getItem(sessionKey)) throw new Error("로그인이 필요합니다.");
+    return clone(dashboard) as T;
+  }
   if (path === "/public/contests") return clone([contest]) as T;
   if (path === "/public/contests/1") return clone(contest) as T;
   if (path === "/public/contests/1/notices") return clone(notices) as T;
@@ -82,7 +109,10 @@ export async function mockRequest<T>(path: string, options: RequestInit = {}) {
   }
   if (path === "/public/contests/1/questions") return clone(questions) as T;
   if (path === "/public/contests/1/application-form") return clone(formFields) as T;
+  if (path === "/contests/1/applications/me") {
+    if (!sessionStorage.getItem(sessionKey)) throw new Error("로그인이 필요합니다.");
+    return { id: 501, contestId: 1, status: "SUBMITTED", introduction: "목업 참가 신청서", answers: { "1": "NEXT MAKERS", "2": "AI로 교실의 에너지 낭비를 줄이는 프로젝트" }, attachments: [], submittedAt: "2026-09-08T17:20:00" } as T;
+  }
   if (method !== "GET") throw new Error("UI 데모에서는 저장되지 않습니다.");
   throw new Error(`목업 데이터가 없는 경로입니다: ${path}`);
 }
-

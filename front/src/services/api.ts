@@ -112,7 +112,13 @@ export type MemberDashboard = {
   }>;
 };
 
+const mockMode = import.meta.env.VITE_MOCK_MODE === "true";
+
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+  if (mockMode) {
+    const { mockRequest } = await import("./mockApi");
+    return mockRequest<T>(path, options);
+  }
   const response = await fetch(`/api${path}`, {
     credentials: "include",
     headers: { "Content-Type": "application/json", ...options.headers },
@@ -123,6 +129,10 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 }
 
 async function requestFormData<T>(path: string, body: FormData): Promise<T> {
+  if (mockMode) {
+    const { mockRequest } = await import("./mockApi");
+    return mockRequest<T>(path, { method: "POST", body });
+  }
   const response = await fetch(`/api${path}`, {
     method: "POST",
     credentials: "include",
@@ -173,11 +183,6 @@ export const contestApi = {
     request<Question>(`/contests/${id}/questions`, {
       method: "POST",
       body: JSON.stringify(body),
-    }),
-  apply: (id: number, answers: Record<string, string>) =>
-    request<Application>(`/contests/${id}/applications`, {
-      method: "POST",
-      body: JSON.stringify({ answers }),
     }),
   applyWithFiles: (id: number, body: FormData) =>
     requestFormData<Application>(`/contests/${id}/applications`, body),
@@ -231,23 +236,10 @@ export const adminApi = {
     }),
   getApplications: () =>
     request<AdminApplication[]>("/admin/contests/applications"),
-  getApplication: async (contestId: number, applicationId: number) => {
-    try {
-      return await request<AdminApplication>(
-        `/admin/contests/${contestId}/applications/${applicationId}`,
-      );
-    } catch {
-      // 상세 API가 아직 배포되지 않은 서버에서도 목록 응답으로 상세 화면을 유지한다.
-      const applications = await request<AdminApplication[]>(
-        "/admin/contests/applications",
-      );
-      const application = applications.find(
-        (item) => item.contestId === contestId && item.id === applicationId,
-      );
-      if (!application) throw new Error("참가 신청을 찾을 수 없습니다.");
-      return application;
-    }
-  },
+  getApplication: (contestId: number, applicationId: number) =>
+    request<AdminApplication>(
+      `/admin/contests/${contestId}/applications/${applicationId}`,
+    ),
   updateApplicationStatus: (
     contestId: number,
     applicationId: number,

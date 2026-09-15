@@ -195,30 +195,6 @@ main {
   margin: 28px 0;
 }
 
-.date-info {
-  display: flex;
-  gap: 9px;
-  align-items: center;
-  color: var(--lime);
-}
-
-.date-info span {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.date-info small {
-  font-size: 10px;
-  color: #98a2b8;
-}
-
-.date-info b {
-  font-size: 11px;
-  color: inherit;
-  white-space: nowrap;
-}
-
 .btn {
   border: 0;
   border-radius: 7px;
@@ -379,13 +355,6 @@ main {
   font-size: clamp(30px, 3vw, 44px);
   letter-spacing: -2px;
   margin: 0;
-}
-
-.more {
-  font-size: 14px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
 }
 
 .notice-list {

@@ -14,12 +14,14 @@
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "latest",
+    "three": "^0.185.1",
     "typescript": "latest",
     "vite": "latest"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
     "@types/react-dom": "latest",
+    "@types/three": "^0.185.4",
     "prettier": "^3.9.6"
   }
 }

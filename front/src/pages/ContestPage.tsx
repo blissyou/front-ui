@@ -241,11 +241,6 @@ export function ContestPage() {
             대회: {contest.startDate} — {contest.endDate}
           </p>
         </div>
-        <div className="public-hero-art" aria-hidden="true">
-          <span>AI × SOFTWARE</span>
-          <strong>&#123;↗&#125;</strong>
-          <small>IDEA → CODE → IMPACT</small>
-        </div>
       </section>
       {feedback && (
         <p

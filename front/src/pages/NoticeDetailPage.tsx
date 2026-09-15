@@ -23,6 +23,10 @@ export function NoticeDetailPage() {
 
   return (
     <main className="notice-detail-page">
+      <div className="festival-page-masthead">
+        <span>THE BULLETIN</span>
+        <small>대회 소식 · NOTICE</small>
+      </div>
       <section className="notice-detail">
         <Link
           className="public-back"

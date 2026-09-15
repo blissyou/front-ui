@@ -105,122 +105,6 @@
   align-items: center;
   gap: 10px;
 }
-.arena-hero-note {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 48px;
-  font-size: 10px;
-  color: #9b9d93;
-}
-.arena-hero-note span:first-child {
-  font-family: "DM Mono", monospace;
-  letter-spacing: 2px;
-  color: #dbdcd3;
-}
-.arena-art {
-  height: 440px;
-  position: relative;
-  overflow: hidden;
-  background-image:
-    linear-gradient(#ffffff08 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff08 1px, transparent 1px);
-  background-size: 32px 32px;
-  border: 1px solid #ffffff20;
-}
-.arena-art-top,
-.arena-art-bottom {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 2;
-  font:
-    9px/1.6 "DM Mono",
-    monospace;
-  color: #b4b5aa;
-}
-.arena-art-top {
-  top: 18px;
-}
-.arena-art-bottom {
-  bottom: 18px;
-  align-items: end;
-}
-.arena-cross {
-  font-size: 35px;
-  line-height: 1;
-}
-.arena-wireball {
-  width: 270px;
-  height: 270px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -135px;
-  transform-style: preserve-3d;
-  animation: arena-sphere 28s linear infinite;
-}
-.arena-wireball span {
-  position: absolute;
-  inset: 0;
-  border: 1px solid #ff633480;
-  border-radius: 50%;
-  backface-visibility: visible;
-}
-.arena-orbit {
-  position: absolute;
-  width: 88%;
-  height: 40%;
-  border: 1px solid #f2f1e944;
-  border-radius: 50%;
-  left: 6%;
-  top: 30%;
-  transform: rotate(-35deg);
-}
-.orbit-two {
-  transform: rotate(35deg);
-}
-.arena-code-mark {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  font-family: monospace;
-  font-size: 125px;
-  letter-spacing: -10px;
-  color: var(--base);
-  text-shadow: 0 3px 0 #20211f;
-}
-.arena-code-mark span {
-  font-size: 120px;
-  color: var(--accent);
-  animation: arena-spin 24s linear infinite;
-  line-height: 1;
-  letter-spacing: 0;
-}
-.arena-art-tag {
-  position: absolute;
-  background: var(--base);
-  color: var(--dark);
-  padding: 7px 10px;
-  font:
-    9px "DM Mono",
-    monospace;
-  transform: rotate(-8deg);
-}
-.tag-one {
-  top: 82px;
-  left: 18px;
-}
-.tag-two {
-  bottom: 83px;
-  right: 15px;
-  transform: rotate(8deg);
-}
 .arena-hero-bottom {
   display: flex;
   justify-content: space-between;
@@ -508,14 +392,6 @@
   opacity: 1;
   transform: none;
 }
-.motion-paused * {
-  animation-play-state: paused !important;
-}
-.motion-paused .arena-reveal {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
 body:has(.arena-home) .public-nav {
   background: #f2f1e9;
   border-bottom: 1px solid #d9dbcf;
@@ -536,19 +412,6 @@ body:has(.arena-home) footer {
 }
 body:has(.arena-home) footer p {
   color: #b6b8ab;
-}
-@keyframes arena-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes arena-sphere {
-  from {
-    transform: rotateZ(-20deg) rotateY(0);
-  }
-  to {
-    transform: rotateZ(-20deg) rotateY(360deg);
-  }
 }
 @keyframes arena-marquee {
   to {
@@ -575,30 +438,12 @@ body:has(.arena-home) footer p {
     gap: 25px;
     grid-template-columns: 1.1fr 1fr;
   }
-  .arena-art {
-    height: 350px;
-  }
   .arena-copy h1 {
     font-size: 43px;
   }
   .arena-actions {
     gap: 17px;
     flex-wrap: wrap;
-  }
-  .arena-hero-note {
-    margin-top: 30px;
-  }
-  .arena-code-mark {
-    font-size: 90px;
-    gap: 8px;
-  }
-  .arena-code-mark span {
-    font-size: 90px;
-  }
-  .arena-wireball {
-    width: 230px;
-    height: 230px;
-    margin: -115px;
   }
   .arena-kicker {
     font-size: 9px;
@@ -628,16 +473,6 @@ body:has(.arena-home) footer p {
   }
   .arena-description {
     font-size: 13px;
-  }
-  .arena-hero-note {
-    display: none;
-  }
-  .arena-art {
-    height: 310px;
-  }
-  .arena-art-top,
-  .arena-art-bottom {
-    font-size: 8px;
   }
   .arena-section-heading {
     align-items: start;

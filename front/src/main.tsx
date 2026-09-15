@@ -23,7 +23,7 @@ import {RequireAdmin} from "./auth/RequireAdmin";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <AuthProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route element={<PublicLayout/>}>
                         <Route path="/" element={<Home/>}/>

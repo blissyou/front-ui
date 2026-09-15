@@ -6,21 +6,28 @@ import {
   Menu,
   Users,
   X,
+  Pause,
+  Play,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "../public.css";
+import "../site-experience.css";
 import { useAuth } from "../auth/AuthProvider";
 
 export function PublicLayout() {
   const [open, setOpen] = useState(false);
   const { member, loading, logout } = useAuth();
   const location = useLocation();
+  const [motionPaused, setMotionPaused] = useState(false);
+  const isExperience = location.pathname !== "/member" || !!member;
   useEffect(() => {
     setOpen(false);
   }, [location]);
   return (
-    <div className="public-shell">
+    <div
+      className={`public-shell${isExperience ? " site-experience" : ""}${motionPaused ? " site-motion-paused" : ""}`}
+    >
       <header className="public-nav">
         <Link to="/" className="brand">
           <i>AI</i>
@@ -44,8 +51,8 @@ export function PublicLayout() {
           className={open ? "open" : ""}
           onClick={() => setOpen(false)}
         >
-          <a href="/#about">대회 소개</a>
-          <a href="/#contests">대회 참가</a>
+          <a href={`${import.meta.env.BASE_URL}#about`}>대회 소개</a>
+          <a href={`${import.meta.env.BASE_URL}#contests`}>대회 참가</a>
           {!loading &&
             (member ? (
               <>
@@ -67,6 +74,21 @@ export function PublicLayout() {
         </nav>
       </header>
       <Outlet />
+      {isExperience && (
+        <button
+          type="button"
+          className="site-motion-control"
+          onClick={() => setMotionPaused(!motionPaused)}
+          aria-label={
+            motionPaused
+              ? "사이트 애니메이션 재생"
+              : "사이트 애니메이션 일시정지"
+          }
+        >
+          {motionPaused ? <Play size={12} /> : <Pause size={12} />} MOTION{" "}
+          {motionPaused ? "OFF" : "ON"}
+        </button>
+      )}
       <footer>
         <div className="brand">
           <i>AI</i>

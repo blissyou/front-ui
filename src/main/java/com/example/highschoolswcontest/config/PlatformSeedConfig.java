@@ -4,7 +4,6 @@ import com.example.highschoolswcontest.entity.*;
 import com.example.highschoolswcontest.global.PasswordHasher;
 import com.example.highschoolswcontest.repository.*;
 import java.time.LocalDate;
-import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.*;
 
@@ -19,17 +18,6 @@ public class PlatformSeedConfig {
       QuestionRepository questions,
       ApplicationFormFieldRepository applicationFormFields) {
     return args -> {
-      // Remove personal profile data collected by older versions. Authentication now uses email only.
-      users.findAll().forEach(
-          user -> {
-            user.setLoginId("account-" + UUID.randomUUID());
-            user.setName("");
-            user.setPhone("");
-            user.setSchool("");
-            user.setGrade(0);
-            users.save(user);
-          });
-
       seedUser(
           users,
           "admin1234",

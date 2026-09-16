@@ -59,17 +59,13 @@ const questions = [
   },
 ];
 
-const formFields = [
-  { id: 1, label: "팀 이름", fieldType: "SHORT_TEXT", required: true, options: [], sortOrder: 1 },
-  { id: 2, label: "프로젝트 소개", fieldType: "LONG_TEXT", required: true, options: [], sortOrder: 2 },
-  { id: 3, label: "프로젝트 분야", fieldType: "SELECT", required: true, options: ["AI", "웹/앱", "IoT", "게임"], sortOrder: 3 },
-  { id: 4, label: "기획서", fieldType: "FILE", required: true, options: [], sortOrder: 4 },
-];
-
-const demoMember = { id: 101, email: "demo@contest.dev", role: "USER" };
+const demoMembers = [
+  { id: 101, email: "demo@contest.dev", password: "demo1234", role: "USER" },
+  { id: 1, email: "admin@contest.dev", password: "admin1234", role: "ADMIN" },
+] as const;
 const sessionKey = "contest-ui-demo-member";
 const dashboard = {
-  applications: [{ id: 501, contestId: 1, contestTitle: contest.title, contestStatus: "OPEN", applicationStatus: "SUBMITTED", submittedAt: "2026-09-08T17:20:00" }],
+  applications: [],
   questions: [{ id: 701, contestId: 1, contestTitle: contest.title, title: "발표 자료 형식에 제한이 있나요?", secret: false, answered: true, answer: "PDF 형식으로 제출해 주세요.", createdAt: "2026-09-09T10:30:00" }],
   notices: notices.map((notice) => ({ id: notice.id, contestId: 1, contestTitle: contest.title, title: notice.title, pinned: notice.pinned, createdAt: notice.createdAt })),
 };
@@ -86,15 +82,21 @@ export async function mockRequest<T>(path: string, options: RequestInit = {}) {
   }
   if (path === "/auth/login" && method === "POST") {
     const body = JSON.parse(String(options.body ?? "{}")) as { email?: string; password?: string };
-    if (body.email !== demoMember.email || body.password !== "demo1234") throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
-    sessionStorage.setItem(sessionKey, JSON.stringify(demoMember));
-    return clone(demoMember) as T;
+    const account = demoMembers.find((item) => item.email === body.email && item.password === body.password);
+    if (!account) throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
+    const member = { id: account.id, email: account.email, role: account.role };
+    sessionStorage.setItem(sessionKey, JSON.stringify(member));
+    return clone(member) as T;
   }
   if (path === "/auth/logout" && method === "POST") {
     sessionStorage.removeItem(sessionKey);
     return { success: true } as T;
   }
-  if (path === "/auth/me" && method === "PATCH") return clone(demoMember) as T;
+  if (path === "/auth/me" && method === "PATCH") {
+    const member = sessionStorage.getItem(sessionKey);
+    if (!member) throw new Error("로그인이 필요합니다.");
+    return JSON.parse(member) as T;
+  }
   if (path === "/member/dashboard") {
     if (!sessionStorage.getItem(sessionKey)) throw new Error("로그인이 필요합니다.");
     return clone(dashboard) as T;
@@ -108,11 +110,21 @@ export async function mockRequest<T>(path: string, options: RequestInit = {}) {
     if (notice) return clone(notice) as T;
   }
   if (path === "/public/contests/1/questions") return clone(questions) as T;
-  if (path === "/public/contests/1/application-form") return clone(formFields) as T;
+  if (path === "/public/contests/1/application-form") return [] as T;
   if (path === "/contests/1/applications/me") {
     if (!sessionStorage.getItem(sessionKey)) throw new Error("로그인이 필요합니다.");
-    return { id: 501, contestId: 1, status: "SUBMITTED", introduction: "목업 참가 신청서", answers: { "1": "NEXT MAKERS", "2": "AI로 교실의 에너지 낭비를 줄이는 프로젝트" }, attachments: [], submittedAt: "2026-09-08T17:20:00" } as T;
+    throw new Error("제출된 참가 신청서가 없습니다.");
   }
+  if (path === "/admin/contests" && method === "GET") return clone([contest]) as T;
+  if (path === "/admin/users" && method === "GET") {
+    return demoMembers.map(({ password: _password, ...member }, index) => ({
+      ...member,
+      createdAt: index ? "2026-09-01T09:00:00" : "2026-08-20T09:00:00",
+    })) as T;
+  }
+  if (path === "/admin/contests/applications" && method === "GET") return [] as T;
+  if (path === "/admin/contests/1/questions" && method === "GET") return clone(questions) as T;
+  if (path === "/admin/contests/1/application-form" && method === "GET") return [] as T;
   if (method !== "GET") throw new Error("UI 데모에서는 저장되지 않습니다.");
   throw new Error(`목업 데이터가 없는 경로입니다: ${path}`);
 }

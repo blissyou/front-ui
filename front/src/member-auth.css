@@ -312,7 +312,7 @@
 }
 .demo-account {
   display: grid;
-  grid-template-columns: auto 1fr 1fr;
+  grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: center;
   margin: 0 0 15px;
@@ -324,6 +324,7 @@
 }
 .demo-account b { font-size: 8px; letter-spacing: 0.8px; }
 .demo-account span { padding-left: 10px; border-left: 1px solid #25282055; }
+.demo-account em { color: #e84f2b; font-style: normal; font-weight: 800; }
 @media (max-width: 640px) {
   .demo-account { grid-template-columns: 1fr; gap: 5px; }
   .demo-account span { padding-left: 0; border-left: 0; }

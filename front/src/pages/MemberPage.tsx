@@ -432,8 +432,8 @@ export function MemberPage() {
         {mockMode && mode === "login" && (
           <aside className="demo-account" aria-label="UI 데모 로그인 정보">
             <b>UI DEMO ACCOUNT</b>
-            <span>demo@contest.dev</span>
-            <span>demo1234</span>
+            <span><em>USER</em> demo@contest.dev / demo1234</span>
+            <span><em>ADMIN</em> admin@contest.dev / admin1234</span>
           </aside>
         )}
         <section className="admin-form">

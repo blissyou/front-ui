@@ -13,4 +13,4 @@ npm --prefix front run preview -- --base /
 
 목업 데이터는 `front/src/services/mockApi.ts`에서 관리한다. 일반 `npm run dev`와 기본 빌드는 기존 `/api` 서버를 계속 사용한다.
 
-목업 참가자 계정은 `demo@contest.dev` / `demo1234`, 관리자 계정은 `admin@contest.dev` / `admin1234`이다. 로그인 상태는 브라우저 탭의 세션 저장소에만 유지되며 서버로 전송되지 않는다. 참가 신청서와 접수 내역은 비어 있는 상태로 제공한다.
+목업 참가자 계정은 `demo@contest.dev` / `demo1234`, 관리자 계정은 `admin@contest.dev` / `admin1234`이다. 로그인 상태는 브라우저 탭의 세션 저장소에만 유지되며 서버로 전송되지 않는다. 참가 신청서 양식은 비어 있고, 관리자 신청 관리 화면에는 검토용 목업 신청 2건이 제공된다.

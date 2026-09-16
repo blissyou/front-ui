@@ -69,6 +69,40 @@ const dashboard = {
   questions: [{ id: 701, contestId: 1, contestTitle: contest.title, title: "발표 자료 형식에 제한이 있나요?", secret: false, answered: true, answer: "PDF 형식으로 제출해 주세요.", createdAt: "2026-09-09T10:30:00" }],
   notices: notices.map((notice) => ({ id: notice.id, contestId: 1, contestTitle: contest.title, title: notice.title, pinned: notice.pinned, createdAt: notice.createdAt })),
 };
+const adminApplications = [
+  {
+    id: 801,
+    contestId: 1,
+    contestTitle: contest.title,
+    status: "SUBMITTED",
+    introduction: "학교생활 속 에너지 낭비를 줄이는 AI 프로젝트입니다.",
+    answers: { team: "NEXT MAKERS", project: "AI 절전 교실" },
+    answerItems: [
+      { label: "팀 이름", fieldType: "SHORT_TEXT", value: "NEXT MAKERS" },
+      { label: "프로젝트 소개", fieldType: "LONG_TEXT", value: "교실의 조명과 냉난방 사용 패턴을 학습해 불필요한 에너지 소비를 줄이는 AI 서비스입니다." },
+      { label: "프로젝트 분야", fieldType: "SELECT", value: "AI" },
+    ],
+    attachments: [],
+    submittedAt: "2026-09-12T14:20:00",
+    applicant: { id: 201, email: "nextmakers@example.com" },
+  },
+  {
+    id: 802,
+    contestId: 1,
+    contestTitle: contest.title,
+    status: "APPROVED",
+    introduction: "시각장애 학생을 위한 교내 길찾기 서비스입니다.",
+    answers: { team: "CODE WAVE", project: "VOICE CAMPUS" },
+    answerItems: [
+      { label: "팀 이름", fieldType: "SHORT_TEXT", value: "CODE WAVE" },
+      { label: "프로젝트 소개", fieldType: "LONG_TEXT", value: "카메라와 음성 안내를 결합해 학교 안에서 안전하게 이동하도록 돕는 모바일 서비스입니다." },
+      { label: "프로젝트 분야", fieldType: "SELECT", value: "웹/앱" },
+    ],
+    attachments: [],
+    submittedAt: "2026-09-10T09:35:00",
+    applicant: { id: 202, email: "codewave@example.com" },
+  },
+];
 
 const clone = <T>(value: T): T => structuredClone(value);
 
@@ -122,7 +156,18 @@ export async function mockRequest<T>(path: string, options: RequestInit = {}) {
       createdAt: index ? "2026-09-01T09:00:00" : "2026-08-20T09:00:00",
     })) as T;
   }
-  if (path === "/admin/contests/applications" && method === "GET") return [] as T;
+  if (path === "/admin/contests/applications" && method === "GET") return clone(adminApplications) as T;
+  const adminApplicationMatch = path.match(/^\/admin\/contests\/1\/applications\/(\d+)(?:\/status)?$/);
+  if (adminApplicationMatch) {
+    const application = adminApplications.find((item) => item.id === Number(adminApplicationMatch[1]));
+    if (!application) throw new Error("참가 신청을 찾을 수 없습니다.");
+    if (method === "PATCH" && path.endsWith("/status")) {
+      const body = JSON.parse(String(options.body ?? "{}")) as { status?: string };
+      if (body.status) application.status = body.status;
+      return { id: application.id, status: application.status } as T;
+    }
+    if (method === "GET") return clone(application) as T;
+  }
   if (path === "/admin/contests/1/questions" && method === "GET") return clone(questions) as T;
   if (path === "/admin/contests/1/application-form" && method === "GET") return [] as T;
   if (method !== "GET") throw new Error("UI 데모에서는 저장되지 않습니다.");

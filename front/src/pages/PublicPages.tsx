@@ -135,7 +135,6 @@ export function Home() {
           </a>
         </div>
       </section>
-      <HomeVideo />
       <div className="arena-marquee" aria-hidden="true">
         <div>
           {[0, 1, 2, 3].map((i) => (
@@ -146,6 +145,7 @@ export function Home() {
           ))}
         </div>
       </div>
+      <HomeVideo />
       <section id="contests" className="arena-contests arena-reveal">
         <div className="festival-section-word" aria-hidden="true">
           THE CHALLENGE<span>01</span>

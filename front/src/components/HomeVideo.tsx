@@ -31,12 +31,10 @@ export function VideoShowcase({ settings }: { settings: HomeVideoSettings }) {
   useEffect(() => setPlaying(false), [id]);
   return (
     <section className="home-video" aria-label="대회 소개 영상">
+      <div className="home-video-section-word" aria-hidden="true">THE FILM<span>00</span></div>
       <header className="home-video-heading">
-        <div>
-          <p>PLAY / CREATE / INSPIRE</p>
-          <h2>{settings.title || "상상이 움직이는 순간."}</h2>
-        </div>
-        <span>THE NEXT FRAME ↗</span>
+        <h2>{settings.title || "상상이 움직이는 순간."}</h2>
+        <p>{settings.description}</p>
       </header>
       <div className="home-video-screen">
         {id && playing ? (
@@ -73,7 +71,6 @@ export function VideoShowcase({ settings }: { settings: HomeVideoSettings }) {
         )}
       </div>
       <div className="home-video-caption">
-        <p>{settings.description}</p>
         {id && (
           <a
             href={`https://www.youtube.com/watch?v=${id}`}

@@ -123,6 +123,141 @@
   padding: 38px clamp(24px, 5vw, 76px) 80px;
 }
 
+.gallery-upload-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  background: #fff;
+  padding: 24px;
+  margin-bottom: 38px;
+}
+.gallery-upload-form label {
+  display: grid;
+  gap: 8px;
+}
+.gallery-upload-form .full {
+  grid-column: 1 / -1;
+}
+.gallery-file {
+  position: relative;
+  min-height: 130px;
+  place-items: center;
+  align-content: center;
+  border: 1px dashed #aeb6c5;
+  border-radius: 8px;
+  color: #657087;
+  cursor: pointer;
+  text-align: center;
+}
+.gallery-file:hover {
+  border-color: #0e8e9d;
+  background: #f6fbfb;
+}
+.gallery-file strong {
+  color: #1b2b4b;
+}
+.gallery-file span {
+  font-size: 12px;
+}
+.gallery-file input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.gallery-file-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.gallery-file-list span {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: #eef1f5;
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+.gallery-list-title {
+  margin-top: 15px;
+}
+.gallery-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.gallery-admin-grid article {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e2e6eb;
+  min-width: 0;
+}
+.gallery-admin-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  background: #e9ecef;
+}
+.gallery-admin-grid article > div {
+  padding: 10px 38px 12px 12px;
+}
+.gallery-admin-grid small,
+.gallery-admin-grid strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gallery-admin-grid small {
+  color: #7d879a;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+.gallery-admin-grid strong {
+  font-size: 12px;
+}
+.gallery-admin-grid article > button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  color: #a03e36;
+  background: #fff0ee;
+  cursor: pointer;
+}
+.admin-gallery-empty {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  background: #fff;
+  color: #8690a2;
+}
+@media (max-width: 1000px) {
+  .gallery-admin-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .gallery-upload-form {
+    grid-template-columns: 1fr;
+  }
+  .gallery-upload-form .full {
+    grid-column: auto;
+  }
+  .gallery-admin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

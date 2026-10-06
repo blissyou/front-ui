@@ -113,6 +113,28 @@ export type MemberDashboard = {
 };
 
 const mockMode = import.meta.env.VITE_MOCK_MODE === "true";
+export type HomeVideoSettings = {
+  url: string;
+  title: string;
+  description: string;
+  enabled: boolean;
+};
+export type GalleryPhoto = {
+  id: number;
+  year: string;
+  category: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+};
+export const homeVideoApi = {
+  get: () => request<HomeVideoSettings>("/public/home-video"),
+  save: (body: HomeVideoSettings) =>
+    request<HomeVideoSettings>("/admin/home-video", {
+      method: "PUT",
+      body: JSON.stringify(body),
+    }),
+};
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   if (mockMode) {
@@ -141,6 +163,14 @@ async function requestFormData<T>(path: string, body: FormData): Promise<T> {
   if (!response.ok) throw new Error(await response.text());
   return response.json() as Promise<T>;
 }
+
+export const galleryApi = {
+  list: () => request<GalleryPhoto[]>("/public/gallery"),
+  upload: (body: FormData) =>
+    requestFormData<GalleryPhoto[]>("/admin/gallery", body),
+  remove: (id: number) =>
+    request<{ success: boolean }>(`/admin/gallery/${id}`, { method: "DELETE" }),
+};
 
 export const authApi = {
   signup: (body: Record<string, string | number>) =>

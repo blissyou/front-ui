@@ -1,0 +1,456 @@
+.archive-page {
+  background: #f7f7f2;
+  color: #252820;
+  min-height: 80vh;
+  padding: 0 max(24px, 4vw) 60px;
+}
+.archive-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 42px 0 30px;
+  max-width: 1600px;
+  margin: auto;
+}
+.archive-eyebrow {
+  font: 10px monospace;
+  letter-spacing: 2px;
+  color: #767b6c;
+  margin: 0 0 14px;
+}
+.archive-hero h1 {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.06em;
+  margin: 0;
+  line-height: 1.25;
+}
+.archive-hero h1 span {
+  color: #ed6237;
+}
+.archive-intro {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #74796c;
+  margin: 12px 0 0;
+}
+.archive-heading-mark {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #787e6c;
+  font: 9px/1.6 monospace;
+  letter-spacing: 1px;
+}
+.archive-collection {
+  max-width: 1600px;
+  margin: auto;
+  scroll-margin-top: 100px;
+}
+.archive-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid #dfe1d7;
+  border-bottom: 1px solid #dfe1d7;
+  padding: 14px 0;
+}
+.archive-years,
+.archive-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.archive-years button {
+  background: transparent;
+  color: #757b6a;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.archive-years button[aria-pressed="true"] {
+  background: #252820;
+  color: #fff;
+}
+.archive-tools {
+  gap: 16px;
+}
+.archive-tools > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #777d70;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.archive-tools select {
+  padding: 8px;
+  background: transparent;
+  color: #252820;
+  border: 0;
+  font-size: 12px;
+  width: auto;
+}
+.archive-search {
+  border: 1px solid #dfe1d7;
+  border-radius: 6px;
+  padding: 0 10px;
+  background: #fff;
+}
+.archive-search input {
+  border: 0;
+  background: transparent;
+  width: 150px;
+  padding: 9px 0;
+  outline: none;
+  font-size: 12px;
+}
+.archive-search:focus-within {
+  outline: 2px solid #ed6237;
+}
+.archive-count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0 15px;
+  font-size: 12px;
+  color: #7d8277;
+}
+.archive-count strong {
+  color: #252820;
+  font-weight: 600;
+}
+.archive-count small {
+  font-size: 10px;
+}
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 22px 14px;
+}
+.archive-card {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  text-align: left;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+.archive-card-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  background: #e5e6dd;
+  aspect-ratio: 4/3;
+}
+.archive-card-image > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+.archive-card:hover .archive-card-image > img {
+  transform: scale(1.04);
+}
+.archive-art {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: #dce3c4;
+  color: #65724c;
+}
+.archive-art-orange {
+  background: #efd2be;
+  color: #a5704d;
+}
+.archive-art-dark {
+  background: #58665b;
+  color: #becbb4;
+}
+.archive-art-blue {
+  background: #cedbe0;
+  color: #6c8792;
+}
+.archive-art-cream {
+  background: #e5e1d6;
+  color: #918979;
+}
+.archive-art-pink {
+  background: #e6d5d1;
+  color: #a87d76;
+}
+.archive-art svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.25s;
+}
+.archive-card:hover svg {
+  transform: scale(1.04);
+}
+.archive-art-label,
+.archive-art-number {
+  display: none;
+}
+.archive-art-sample {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font: 7px monospace;
+  letter-spacing: 1.5px;
+  opacity: 0.65;
+}
+.archive-open {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  display: grid;
+  place-items: center;
+  background: #ffffffed;
+  color: #252820;
+  border-radius: 5px;
+  width: 27px;
+  height: 27px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+.archive-open svg {
+  width: 15px;
+  height: 15px;
+}
+.archive-card:hover .archive-open,
+.archive-card:focus-visible .archive-open {
+  opacity: 1;
+  transform: none;
+}
+.archive-card-meta {
+  margin-top: 10px;
+  color: #858b7c;
+  font-size: 10px;
+}
+.archive-card h3 {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 5px 0 0;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.archive-page button:focus-visible,
+.archive-page a:focus-visible,
+.archive-page select:focus-visible {
+  outline: 2px solid #ed6237;
+  outline-offset: 3px;
+}
+.archive-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 32px 0 0;
+  margin-top: 30px;
+  border-top: 1px solid #dfe1d7;
+}
+.archive-pagination button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  color: #6d7464;
+  cursor: pointer;
+}
+.archive-pagination button[aria-current="page"] {
+  background: #252820;
+  color: white;
+}
+.archive-pagination button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.archive-empty {
+  text-align: center;
+  padding: 75px 20px;
+  color: #777d70;
+}
+.archive-empty svg {
+  margin: auto;
+}
+.archive-empty h2 {
+  font-size: 18px;
+  color: #252820;
+}
+.archive-empty p {
+  font-size: 13px;
+}
+.archive-empty button {
+  background: #252820;
+  color: white;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.archive-dialog {
+  width: min(1000px, 92vw);
+  max-height: 90dvh;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #f7f7f2;
+  color: #252820;
+  overflow: auto;
+}
+.archive-dialog::backdrop {
+  background: #11150fdf;
+  backdrop-filter: blur(6px);
+}
+body:has(.archive-dialog[open]) {
+  overflow: hidden;
+}
+.archive-dialog .archive-art {
+  height: min(50dvh, 500px);
+}
+.archive-dialog > img {
+  display: block;
+  width: 100%;
+  height: 55dvh;
+  object-fit: contain;
+  background: #171b16;
+}
+.archive-close {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #252820;
+  background: #ffffffed;
+  cursor: pointer;
+}
+.archive-dialog-copy {
+  padding: 22px 28px;
+}
+.archive-dialog-copy h2 {
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  margin: 10px 0;
+}
+.archive-dialog-copy p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #797e71;
+}
+.archive-dialog-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding-top: 16px;
+  margin-top: 20px;
+  border-top: 1px solid #dfe1d7;
+}
+.archive-dialog-nav button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  padding: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+@media (min-width: 1700px) {
+  .archive-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1100px) {
+  .archive-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 800px) {
+  .archive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .archive-toolbar {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .archive-tools {
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 540px) {
+  .archive-page {
+    padding: 0 18px 40px;
+  }
+  .archive-hero {
+    padding: 28px 0 22px;
+  }
+  .archive-heading-mark {
+    display: none;
+  }
+  .archive-intro {
+    font-size: 12px;
+  }
+  .archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 10px;
+  }
+  .archive-tools {
+    width: 100%;
+    flex: auto;
+    gap: 8px;
+  }
+  .archive-search input {
+    width: 115px;
+  }
+  .archive-count {
+    align-items: start;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .archive-card h3 {
+    font-size: 11px;
+  }
+  .archive-dialog-copy {
+    padding: 18px;
+  }
+  .archive-dialog-copy h2 {
+    font-size: 18px;
+  }
+  .archive-dialog .archive-art {
+    height: 32dvh;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .archive-page * {
+    transition: none !important;
+  }
+}
+.site-motion-paused .archive-page * {
+  transition: none !important;
+}

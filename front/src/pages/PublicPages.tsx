@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUpRight, ArrowRight } from "lucide-react";
 import { contestApi, type Contest } from "../services/api";
 import "../home.css";
 import { ContestSculpture } from "../components/ContestSculpture";
+import { HomeVideo } from "../components/HomeVideo";
 
 const statusText: Record<string, string> = {
   OPEN: "모집 중",
@@ -99,7 +100,9 @@ export function Home() {
                 NEXT<span className="festival-period">↗</span>
               </span>
             </div>
-            <p className="festival-korean-title">작은 시작으로, 너만의 세계를.</p>
+            <p className="festival-korean-title">
+              작은 시작으로, 너만의 세계를.
+            </p>
             <p className="arena-description">
               하나의 점이 이 세계가 된 것처럼.
               <br />
@@ -120,7 +123,10 @@ export function Home() {
               <span>[ AI × SW ]</span>
             </div>
             <ContestSculpture interactive />
-            <div className="genesis-art-note"><span>ONE SPARK. A WHOLE UNIVERSE.</span><b>이 모든 가능성의 시작은, 너.</b></div>
+            <div className="genesis-art-note">
+              <span>ONE SPARK. A WHOLE UNIVERSE.</span>
+              <b>이 모든 가능성의 시작은, 너.</b>
+            </div>
           </div>
         </div>
         <div className="arena-hero-bottom">
@@ -129,6 +135,7 @@ export function Home() {
           </a>
         </div>
       </section>
+      <HomeVideo />
       <div className="arena-marquee" aria-hidden="true">
         <div>
           {[0, 1, 2, 3].map((i) => (

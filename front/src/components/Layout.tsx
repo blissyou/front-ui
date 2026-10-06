@@ -8,6 +8,7 @@ import {
   X,
   Pause,
   Play,
+  Images,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -52,7 +53,9 @@ export function PublicLayout() {
           onClick={() => setOpen(false)}
         >
           <a href={`${import.meta.env.BASE_URL}#about`}>대회 소개</a>
+          <NavLink to="/welcome">환영사</NavLink>
           <a href={`${import.meta.env.BASE_URL}#contests`}>대회 참가</a>
+          <NavLink to="/gallery">갤러리</NavLink>
           {!loading &&
             (member ? (
               <>
@@ -112,6 +115,8 @@ const menus = [
   ["/admin/competitions", Flag, "대회 관리"],
   ["/admin/applications", ClipboardList, "참가 신청 관리"],
   ["/admin/users", Users, "사용자 관리"],
+  ["/admin/home-video", Play, "홈 영상 관리"],
+  ["/admin/gallery", Images, "갤러리 관리"],
 ] as const;
 
 export function AdminLayout() {
